@@ -8,7 +8,7 @@ class Login extends Component {
     return(
       <DocumentTitle title="Login Component">
         <div className="Login">
-          <Header as="h1">Login</Header>
+          <Header as="h1" color='red'>Login</Header>
           <LoginForm/>
         </div>
       </DocumentTitle>

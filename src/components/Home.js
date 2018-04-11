@@ -7,7 +7,7 @@ class Home extends Component {
     return(
       <DocumentTitle title="Home Component">
         <div className="Home">
-          <Header as="h1">Startseite</Header>
+          <Header as="h1" color='red'>Home</Header>
         </div>
       </DocumentTitle>
     );

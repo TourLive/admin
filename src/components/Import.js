@@ -7,7 +7,7 @@ class Import extends Component {
     return(
       <DocumentTitle title="Import Component">
         <div className="Import">
-          <Header as="h1">Import</Header>
+          <Header as="h1" color='red'>Import</Header>
         </div>
       </DocumentTitle>
     );

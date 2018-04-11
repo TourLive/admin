@@ -8,7 +8,7 @@ class Settings extends Component {
     return(
       <DocumentTitle title="Settings Component">
         <div className="Settings">
-          <Header as="h1">Settings</Header>
+          <Header as="h1" color='red'>Settings</Header>
           <SettingsForm/>
         </div>
       </DocumentTitle>
