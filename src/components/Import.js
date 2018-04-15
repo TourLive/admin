@@ -1,15 +1,16 @@
 import React, {Component} from "react";
-import DocumentTitle from "react-document-title";
 import {Header} from "semantic-ui-react";
+import {Helmet} from "react-helmet";
 
 class Import extends Component {
   render() {
     return(
-      <DocumentTitle title="Import Component">
         <div className="Import">
+          <Helmet>
+            <title>Tourlive Admin | Import</title>
+          </Helmet>
           <Header as="h1" color='red'>Import</Header>
         </div>
-      </DocumentTitle>
     );
   }
 }

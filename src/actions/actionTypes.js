@@ -1,0 +1,2 @@
+export const GET_SETTINGS = "GET_SETTINGS";
+export const GET_RACES_AND_STAGES = "GET_RACES_STAGES";

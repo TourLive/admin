@@ -1,17 +1,18 @@
 import React, {Component} from "react";
-import DocumentTitle from "react-document-title";
 import LoginForm from './LoginForm'
 import {Header} from "semantic-ui-react";
+import {Helmet} from "react-helmet";
 
 class Login extends Component {
   render() {
     return(
-      <DocumentTitle title="Login Component">
         <div className="Login">
+          <Helmet>
+            <title>Tourlive Admin | Login</title>
+          </Helmet>
           <Header as="h1" color='red'>Login</Header>
           <LoginForm/>
         </div>
-      </DocumentTitle>
     );
   }
 }
