@@ -43,8 +43,6 @@ class SettingsForm extends Component {
   }
 
   render() {
-    //console.log(this.state.races);
-    //console.log(this.state.raceID);
     return(
       <Form onSubmit={this.handleSubmit}>
           <Form.Field onChange={this.handleInputChange} control='select' name="raceID">
