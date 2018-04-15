@@ -23,7 +23,7 @@ class Settings extends Component {
     console.log(settings);
     console.log(races);
     return(
-        <div className="Settings">
+        <div className="App-Content">
           <Helmet>
             <title>Tourlive Admin | Settings</title>
           </Helmet>

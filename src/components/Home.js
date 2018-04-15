@@ -5,7 +5,7 @@ import {Helmet} from "react-helmet";
 class Home extends Component {
   render() {
     return(
-        <div className="Home">
+        <div className="App-Content">
           <Helmet>
             <title>Tourlive Admin | Home</title>
           </Helmet>

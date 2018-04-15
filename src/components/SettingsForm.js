@@ -22,21 +22,20 @@ class SettingsForm extends Component {
   }
 
   handleInputChange(event) {
-    console.log("HERE");
     this.setState({
       [event.target.name]: parseInt(event.target.value,10)
     });
   }
 
-  handleSubmit = event => {
+  handleSubmit(event) {
     event.preventDefault();
 
     const setting = {
       raceID: this.state.raceID,
       stageID: this.state.stageID
     }
-
-    axios.put("http://prod-api.tourlive.ch/settings", {setting}).then(res => {
+    
+    axios.put("http://localhost:9000/settings", {setting}).then(res => {
       console.log(res);
       console.log(res.data);
     });
@@ -44,16 +43,13 @@ class SettingsForm extends Component {
 
   render() {
     return(
-      <Form onSubmit={this.handleSubmit}>
-          <Form.Field onChange={this.handleInputChange} control='select' name="raceID">
-            <option key={10} value={1000}>Tour de Test</option>
+      <Form success onSubmit={this.handleSubmit}>
+          <Form.Field onChange={this.handleInputChange} control='select' name="raceID" value={this.state.raceID}>
             {this.state.races.map(x => <option key={x.id} value={x.id}>{x.name}</option>)}
           </Form.Field>
           <Form.Field onChange={this.handleInputChange} control='select' name="stageID">
             {this.state.races.filter(item => item.id === this.state.raceID).map(item => {
-              console.log(item.stages);
               return (item.stages.map(sub => {
-                console.log(sub.stageName);
                 return (<option key={sub.id} value={sub.id}>{sub.stageName} ({sub.start} nach {sub.destination}, {sub.stageType})</option>)
               }))
             })}
