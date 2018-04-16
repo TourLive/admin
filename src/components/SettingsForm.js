@@ -34,7 +34,7 @@ class SettingsForm extends Component {
       raceID: this.state.raceID,
       stageID: this.state.stageID
     }
-    
+
     axios.put("http://localhost:9000/settings", {setting}).then(res => {
       console.log(res);
       console.log(res.data);

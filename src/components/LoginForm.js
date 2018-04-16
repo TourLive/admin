@@ -7,23 +7,16 @@ class LoginForm extends Component {
     super();
 
     this.state = {
-      raceID: 1000,
-      stageID: 0,
-      races: []
+      username: "",
+      password: ""
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentWillReceiveProps(props) {
-    this.setState({raceID: props.currentData.raceID});
-    this.setState({stageID: props.currentData.stageID});
-    this.setState({races: props.now});
-  }
-
   handleInputChange(event) {
     this.setState({
-      [event.target.name]: parseInt(event.target.value,10)
+      [event.target.name]: event.target.value
     });
   }
 
@@ -46,11 +39,11 @@ class LoginForm extends Component {
         <Segment>
           <Form.Field>
             <label>Username</label>
-            <input placeholder='firstname.lastname@domain.ch' type="email"/>
+            <input name="username" placeholder='firstname.lastname@domain.ch' onChange={this.handleInputChange} type="email"/>
           </Form.Field>
           <Form.Field>
             <label>Password</label>
-            <input type="password"/>
+            <input name="password" type="password" onChange={this.handleInputChange}/>
           </Form.Field>
           <Button primary fluid>Login</Button>
         </Segment>

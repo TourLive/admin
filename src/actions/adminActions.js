@@ -18,7 +18,7 @@ function receiveRacesAndStages(data) {
 export function getSettingsFromAPI() {
   return function (dispatch) {
     return axios({
-      url : "http://localhost:9000/settings",
+      url : "http://dev-api.tourlive.ch/settings",
       timeout : 20000,
       method: 'get',
       responseType: 'json'
@@ -31,7 +31,7 @@ export function getSettingsFromAPI() {
 export function getRacesAndStagesFromAPI() {
   return function (dispatch) {
     return axios({
-      url : "http://localhost:9000/races",
+      url : "http://dev-api.tourlive.ch/races",
       timeout: 20000,
       method: 'get',
       responseType: 'json'
