@@ -17,9 +17,9 @@ class SettingsForm extends Component {
   }
 
   componentWillReceiveProps(props) {
-    this.setState({raceID: props.currentData.raceID});
-    this.setState({stageID: props.currentData.stageID});
-    this.setState({races: props.now});
+    this.setState({raceID: props.settings.raceID});
+    this.setState({stageID: props.settings.stageID});
+    this.setState({races: props.races});
   }
 
   handleInputChange(event) {
@@ -45,7 +45,7 @@ class SettingsForm extends Component {
           <Form.Field onChange={this.handleInputChange} control='select' name="raceID" value={this.state.raceID}>
             {this.state.races.map(x => <option key={x.id} value={x.id}>{x.name}</option>)}
           </Form.Field>
-          <Form.Field onChange={this.handleInputChange} control='select' name="stageID">
+          <Form.Field onChange={this.handleInputChange} control='select' name="stageID" value={this.state.stageID}>
             {this.state.races.filter(item => item.id === this.state.raceID).map(item => {
               return (item.stages.map(sub => {
                 return (<option key={sub.id} value={sub.id}>{sub.stageName} ({sub.start} nach {sub.destination}, {sub.stageType})</option>)

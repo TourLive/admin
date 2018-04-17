@@ -87,8 +87,6 @@ export function postLogin(user) {
 }
 
 export function putSettings(setting) {
-  console.log("PUT" + store.getState().user.username);
-  console.log("PUT" + store.getState().user.password);
   return function (dispatch) {
     axios.put("http://localhost:9000/settings", setting, {
       headers: {

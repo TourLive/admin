@@ -28,7 +28,7 @@ class Settings extends Component {
             <title>Tourlive Admin | Einstellungen</title>
           </Helmet>
           <Header as="h1" color='red'>Einstellungen</Header>
-          <SettingsForm currentData={settings} now={races}/>
+          <SettingsForm settings={settings} races={races}/>
         </div>
     );
   }
