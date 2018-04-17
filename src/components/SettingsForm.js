@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import {Button, Form, Message} from "semantic-ui-react";
-import store from "../store"
-import * as adminActions from "../actions/adminActions";
-import { connect } from 'react-redux'
-
+import axios from "axios";
 
 class SettingsForm extends Component {
   constructor() {
@@ -12,23 +9,16 @@ class SettingsForm extends Component {
     this.state = {
       raceID: 1000,
       stageID: 0,
+      races: []
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  fetchCurrentSettings() {
-    store.dispatch(adminActions.getSettingsFromAPI())
-    store.dispatch(adminActions.getRacesAndStagesFromAPI())
-  }
-
-  putSettings(setting) {
-    store.dispatch(adminActions.putSettings(setting));
-  }
-
-  componentDidMount() {
-    this.fetchCurrentSettings();
-    console.log("Component did mount");
+  componentWillReceiveProps(props) {
+    this.setState({raceID: props.currentData.raceID});
+    this.setState({stageID: props.currentData.stageID});
+    this.setState({races: props.now});
   }
 
   handleInputChange(event) {
@@ -44,24 +34,21 @@ class SettingsForm extends Component {
       raceID: this.state.raceID,
       stageID: this.state.stageID
     };
-    console.log(setting);
-    this.putSettings(setting);
+
+    axios.put("http://localhost:9000/settings", {setting}).then(res => {
+      console.log(res);
+      console.log(res.data);
+    });
   }
 
   render() {
-    const {settings} = this.props;
-    const {races} = this.props;
-    console.log(settings);
-    console.log(races);
-    this.setState({raceID : settings.raceID});
-
     return(
       <Form onSubmit={this.handleSubmit}>
           <Form.Field onChange={this.handleInputChange} control='select' name="raceID" value={this.state.raceID}>
-            {races.map(x => <option key={x.id} value={x.id}>{x.name}</option>)}
+            {this.state.races.map(x => <option key={x.id} value={x.id}>{x.name}</option>)}
           </Form.Field>
           <Form.Field onChange={this.handleInputChange} control='select' name="stageID">
-            {races.filter(item => item.id === this.state.raceID).map(item => {
+            {this.state.races.filter(item => item.id === this.state.raceID).map(item => {
               return (item.stages.map(sub => {
                 return (<option key={sub.id} value={sub.id}>{sub.stageName} ({sub.start} nach {sub.destination}, {sub.stageType})</option>)
               }))
@@ -83,11 +70,4 @@ class SettingsForm extends Component {
   }
 }
 
-function mapStateToProps(store) {
-  return {
-    settings: store.settings.data,
-    races : store.races.data
-  }
-}
-
-export default connect(mapStateToProps)(SettingsForm);
+export default SettingsForm;
