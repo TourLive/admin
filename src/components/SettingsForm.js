@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Button, Form, Message} from "semantic-ui-react";
-import axios from "axios";
+import store from "../store"
+import * as adminActions from "../actions/adminActions";
 
 class SettingsForm extends Component {
   constructor() {
@@ -35,10 +36,7 @@ class SettingsForm extends Component {
       stageID: this.state.stageID
     };
 
-    axios.put("http://localhost:9000/settings", {setting}).then(res => {
-      console.log(res);
-      console.log(res.data);
-    });
+    store.dispatch(adminActions.putSettings(setting));
   }
 
   render() {
