@@ -1,7 +1,7 @@
 import axios from "axios";
 import * as types from "./actionTypes";
 
-function receiveLogin(data) {
+function receiveSettings(data) {
   return {
     type : types.GET_SETTINGS,
     data : data
@@ -29,6 +29,13 @@ function receiveLoginError(error) {
   }
 };
 
+function receiveSettingsError (error) {
+  return {
+    type : types.SET_SETTINGS_ERROR,
+    data : error
+  }
+};
+
 function receiveLogout() {
     return {
         type: types.UNSET_USER
@@ -38,12 +45,12 @@ function receiveLogout() {
 export function getSettingsFromAPI() {
   return function (dispatch) {
     return axios({
-      url : "http://dev-api.tourlive.ch/settings",
+      url : "http://localhost:9000/settings",
       timeout : 20000,
       method: 'get',
       responseType: 'json'
     }). then(function (response) {
-      dispatch(receiveLogin(response.data));
+      dispatch(receiveSettings(response.data));
     })
   }
 }
@@ -51,7 +58,7 @@ export function getSettingsFromAPI() {
 export function getRacesAndStagesFromAPI() {
   return function (dispatch) {
     return axios({
-      url : "http://dev-api.tourlive.ch/races",
+      url : "http://localhost:9000/races",
       timeout: 20000,
       method: 'get',
       responseType: 'json'
@@ -76,6 +83,24 @@ export function postLogin(user) {
           dispatch(receiveLoginError(response));
       });
     }
+}
+
+export function putSettings(setting) {
+  return function (dispatch) {
+    axios.put("http://localhost:9000/settings", setting).then(function (response) {
+        if(response.status === 200) {
+          console.log(response);
+          dispatch(getSettingsFromAPI());
+        } else {
+          console.log(response);
+          dispatch(receiveSettingsError("Invalid api call"));
+        }
+    }).catch(function (response) {
+        console.log(response);
+        dispatch(receiveSettingsError);
+    })
+
+  }
 }
 
 export function logout() {
