@@ -15,6 +15,26 @@ function receiveRacesAndStages(data) {
   }
 };
 
+function sucessfullLogin(data) {
+  return {
+    type : types.SET_USER,
+    data : data
+  }
+};
+
+function receiveLoginError(error) {
+  return {
+    type : types.SET_USER_ERROR,
+    data : error
+  }
+};
+
+function receiveLogout() {
+    return {
+        type: types.UNSET_USER
+    }
+};
+
 export function getSettingsFromAPI() {
   return function (dispatch) {
     return axios({
@@ -39,4 +59,27 @@ export function getRacesAndStagesFromAPI() {
       dispatch(receiveRacesAndStages(response.data));
     })
   }
+}
+
+export function postLogin(user) {
+    return function (dispatch) {
+      axios.post("http://localhost:9000/login", user).then(function (response) {
+          if(response.status === 200) {
+              console.log(response);
+              dispatch(sucessfullLogin(user));
+          } else {
+              console.log(response);
+              dispatch(receiveLoginError("Combination of username and password not found"));
+          }
+      }).catch(function (response) {
+          console.log(response);
+          dispatch(receiveLoginError(response));
+      });
+    }
+}
+
+export function logout() {
+    return function (dispatch) {
+        dispatch(receiveLogout());
+    }
 }
