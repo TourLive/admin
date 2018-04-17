@@ -25,9 +25,9 @@ class Settings extends Component {
     return(
         <div className="App-Content">
           <Helmet>
-            <title>Tourlive Admin | Settings</title>
+            <title>Tourlive Admin | Einstellungen</title>
           </Helmet>
-          <Header as="h1" color='red'>Settings</Header>
+          <Header as="h1" color='red'>Einstellungen</Header>
           <SettingsForm currentData={settings} now={races}/>
         </div>
     );
