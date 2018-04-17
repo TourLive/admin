@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import {Menu} from 'semantic-ui-react';
-import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch, Link, LoginRoute} from 'react-router-dom';
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Import from "./components/Import";

@@ -6,7 +6,7 @@ import {Helmet} from "react-helmet";
 class Login extends Component {
   render() {
     return(
-        <div className="Login">
+        <div className="App-Content">
           <Helmet>
             <title>Tourlive Admin | Login</title>
           </Helmet>

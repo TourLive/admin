@@ -29,17 +29,24 @@ class LoginForm extends Component {
     }
     console.log(user);
     axios.post("http://localhost:9000/login", {user}).then(res => {
-      console.log(res);
-      console.log(res.data);
+        console.log(res);
+        console.log(res.data);
+      if (res.status === 200) {
+        console.log("login sucessfully");
+      } else {
+        console.log("Username or password does not exist");
+      }
+    }).catch(function (error) {
+        console.log(error);
     });
   }
   render() {
     return(
-      <Form>
+      <Form onSubmit={this.handleSubmit}>
         <Segment>
           <Form.Field>
             <label>Username</label>
-            <input name="username" placeholder='firstname.lastname@domain.ch' onChange={this.handleInputChange} type="email"/>
+            <input name="username" placeholder='firstname.lastname@domain.ch' onChange={this.handleInputChange} type="text"/>
           </Form.Field>
           <Form.Field>
             <label>Password</label>

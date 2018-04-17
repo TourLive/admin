@@ -64,7 +64,7 @@ class SettingsForm extends Component {
             header='Action Forbidden'
             content='You can only sign up for an account once with a given e-mail address.'
           />
-          <Button primary fluid>Settings updaten</Button>
+          <Button primary fluid>Einstellungen speichern</Button>
       </Form>
     );
   }
