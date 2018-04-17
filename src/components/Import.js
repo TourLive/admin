@@ -39,7 +39,7 @@ class Import extends Component {
       ) : (
         this.state.updated === true ? (
           <Segment inverted color='green'>
-            <p>Der Import auf die API wurde erfolgreich ausgeführt.</p>
+            <p>Der Import auf die API wurde erfolgreich ausgeführt. Bitte nicht vergessen die Einstellungen zu ändern.</p>
           </Segment>
         ) : (
           <br/>
