@@ -41,8 +41,8 @@
       <file leaf-file-name="SettingsForm.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/SettingsForm.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="45" column="93" lean-forward="false" selection-start-line="45" selection-start-column="93" selection-end-line="45" selection-end-column="93" />
+            <state relative-caret-position="491">
+              <caret line="56" column="136" lean-forward="false" selection-start-line="56" selection-start-column="136" selection-end-line="56" selection-end-column="136" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
               </folding>
@@ -295,12 +295,12 @@
       <workItem from="1523945585237" duration="92000" />
       <workItem from="1523945734394" duration="253000" />
       <workItem from="1523946002253" duration="12976000" />
-      <workItem from="1523987623101" duration="1927000" />
+      <workItem from="1523987623101" duration="2344000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37467000" />
+    <option name="totallyTimeSpent" value="37884000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -810,8 +810,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/SettingsForm.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="45" column="93" lean-forward="false" selection-start-line="45" selection-start-column="93" selection-end-line="45" selection-end-column="93" />
+        <state relative-caret-position="491">
+          <caret line="56" column="136" lean-forward="false" selection-start-line="56" selection-start-column="136" selection-end-line="56" selection-end-column="136" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
           </folding>
