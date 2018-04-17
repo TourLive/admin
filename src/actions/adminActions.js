@@ -41,7 +41,26 @@ function receiveSettingsError (error) {
     type : types.SET_SETTINGS_ERROR,
     data : error
   }
-};
+}
+
+function importError (error) {
+  return {
+    type : types.SET_IMPORT_ERROR,
+    data : error
+  }
+}
+
+function importDone () {
+  return {
+    type : types.SET_IMPORT_DONE
+  }
+}
+
+function importStart () {
+  return {
+    type : types.SET_IMPORT_START
+  }
+}
 
 export function getSettingsFromAPI() {
   return function (dispatch) {
@@ -109,6 +128,32 @@ export function putSettings(setting) {
       dispatch(receiveSettingsError);
     })
 
+  }
+}
+
+export function initialImport() {
+  return function (dispatch) {
+    dispatch(importStart());
+    axios.get("http://localhost:9000/import", {
+      headers: {
+        "Csrf-Token": "nocheck"
+      },
+      auth: {
+        username: store.getState().user.username,
+        password: store.getState().user.password
+      }
+    }).then(function (response) {
+      if(response.status === 200) {
+        console.log(response);
+        dispatch(importDone());
+      } else {
+        console.log(response);
+        dispatch(importError("Invalid api call"));
+      }
+    }).catch(function (response) {
+      console.log(response);
+      dispatch(importError);
+    })
   }
 }
 
