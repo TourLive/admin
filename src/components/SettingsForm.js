@@ -10,7 +10,8 @@ class SettingsForm extends Component {
     this.state = {
       raceID: 1000,
       stageID: 0,
-      races: []
+      races: [],
+      updated : false,
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -37,21 +38,12 @@ class SettingsForm extends Component {
     };
 
     store.dispatch(adminActions.putSettings(setting));
+    this.setState({updated: true});
   }
 
   render() {
     return(
-      <Form onSubmit={this.handleSubmit}>
-          <Form.Field onChange={this.handleInputChange} control='select' name="raceID" value={this.state.raceID}>
-            {this.state.races.map(x => <option key={x.id} value={x.id}>{x.name}</option>)}
-          </Form.Field>
-          <Form.Field onChange={this.handleInputChange} control='select' name="stageID" value={this.state.stageID}>
-            {this.state.races.filter(item => item.id === this.state.raceID).map(item => {
-              return (item.stages.map(sub => {
-                return (<option key={sub.id} value={sub.id}>{sub.stageName} ({sub.start} nach {sub.destination}, {sub.stageType})</option>)
-              }))
-            })}
-          </Form.Field>
+      <Form success={store.getState().settings.error === false && this.state.updated === true} error={store.getState().settings.error === true} onSubmit={this.handleSubmit}>
           <Message
             success
             header='Einstellungen gespeichert'
@@ -62,6 +54,16 @@ class SettingsForm extends Component {
             header='Speichern fehlgeschlagen'
             content='Das Speichern der Einstellungen ist fehlgeschlagen. Versuchen Sie es später erneut und prüfen Sie die Umsysteme (API) auf Fehler.'
           />
+          <Form.Field onChange={this.handleInputChange} control='select' name="raceID" value={this.state.raceID}>
+            {this.state.races.map(x => <option key={x.id} value={x.id}>{x.name}</option>)}
+          </Form.Field>
+          <Form.Field onChange={this.handleInputChange} control='select' name="stageID" value={this.state.stageID}>
+            {this.state.races.filter(item => item.id === this.state.raceID).map(item => {
+              return (item.stages.map(sub => {
+                return (<option key={sub.id} value={sub.id}>{sub.stageName} ({sub.start} nach {sub.destination}, {sub.stageType})</option>)
+              }))
+            })}
+          </Form.Field>
           <Button primary fluid>Einstellungen speichern</Button>
       </Form>
     );
