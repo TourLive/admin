@@ -33,7 +33,7 @@ class SettingsForm extends Component {
     const setting = {
       raceID: this.state.raceID,
       stageID: this.state.stageID
-    }
+    };
 
     axios.put("http://localhost:9000/settings", {setting}).then(res => {
       console.log(res);
@@ -43,7 +43,7 @@ class SettingsForm extends Component {
 
   render() {
     return(
-      <Form success onSubmit={this.handleSubmit}>
+      <Form onSubmit={this.handleSubmit}>
           <Form.Field onChange={this.handleInputChange} control='select' name="raceID" value={this.state.raceID}>
             {this.state.races.map(x => <option key={x.id} value={x.id}>{x.name}</option>)}
           </Form.Field>
@@ -56,13 +56,13 @@ class SettingsForm extends Component {
           </Form.Field>
           <Message
             success
-            header='Form Completed'
-            content="You're all signed up for the newsletter"
+            header='Einstellungen gespeichert'
+            content="Die Einstellungen wurden erfolgreich gespeichert. "
           />
           <Message
             error
-            header='Action Forbidden'
-            content='You can only sign up for an account once with a given e-mail address.'
+            header='Speichern fehlgeschlagen'
+            content='Das Speichern der Einstellungen ist fehlgeschlagen. Versuchen Sie es später erneut und prüfen Sie die Umsysteme (API) auf Fehler.'
           />
           <Button primary fluid>Einstellungen speichern</Button>
       </Form>
