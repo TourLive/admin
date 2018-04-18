@@ -42,9 +42,6 @@ class SettingsForm extends Component {
   }
 
   render() {
-    console.log(this.state.raceID + " " + this.state.stageID);
-    console.log(this.state.races);
-
     return(
       <Form success={store.getState().settings.error === false && this.state.updated === true} error={store.getState().settings.error === true} onSubmit={this.handleSubmit}>
           <Message
@@ -64,7 +61,6 @@ class SettingsForm extends Component {
           <Form.Field onChange={this.handleInputChange} label="Aktuelle Etappe" control='select' name="stageID" value={this.state.stageID}>
             {this.state.races.filter(item => item.id === this.state.raceID).map(item => {
               return (item.stages.map(sub => {
-                console.log(sub);
                 return (<option key={sub.id} value={sub.id}>{sub.stageName} ({sub.start} nach {sub.destination}, {sub.stageType})</option>)
               }))
             })}

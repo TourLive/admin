@@ -11,7 +11,8 @@ class LoginForm extends Component {
     this.state = {
       username: "",
       password: ""
-    }
+    };
+
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.postLogin = this.postLogin.bind(this);
@@ -33,14 +34,12 @@ class LoginForm extends Component {
     const user = {
       username: this.state.username,
       password: this.state.password
-    }
-    console.log(user);
-      this.postLogin(user);
+    };
+
+    this.postLogin(user);
   }
   render() {
     const {user} = this.props;
-    console.log(user.error);
-    console.log(user.error !== "");
     return(
       <Form error={user.error !== "" || user.error === undefined} onSubmit={this.handleSubmit}>
           <Message
