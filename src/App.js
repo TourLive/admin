@@ -28,20 +28,20 @@ class App extends Component {
 
     const menu = user.loggedIn ? (
         [
-            <Menu.Item as={ Link } to="/" name='home' active={activeItem === 'home'} onClick={this.handleMenuItemClick}>
+            <Menu.Item as={ Link } key="1001" to="/" name='home' active={activeItem === 'home'} onClick={this.handleMenuItemClick}>
                 Home
             </Menu.Item>,
-            <Menu.Item as={ Link } to="/settings" name='settings' active={activeItem === 'settings'} onClick={this.handleMenuItemClick}>
+            <Menu.Item as={ Link } key="1002" to="/settings" name='settings' active={activeItem === 'settings'} onClick={this.handleMenuItemClick}>
                 Settings
             </Menu.Item>,
-            <Menu.Item as={ Link } to="/import" name='import' active={activeItem === 'import'} onClick={this.handleMenuItemClick}>
+            <Menu.Item as={ Link } key="1003" to="/import" name='import' active={activeItem === 'import'} onClick={this.handleMenuItemClick}>
                 Import
             </Menu.Item>,
-            <Menu.Item as={ Link } to="/logout" name='logout' active={activeItem === 'logout'} onClick={this.handleMenuItemClick}>
+            <Menu.Item as={ Link } key="1004" to="/logout" name='logout' active={activeItem === 'logout'} onClick={this.handleMenuItemClick}>
                 Logout
             </Menu.Item>
         ]
-         ) : (<Menu.Item as={ Link } to="/login" name='login' active={activeItem === 'login'} onClick={this.handleMenuItemClick}>
+         ) : (<Menu.Item as={ Link } key="1005" to="/login" name='login' active={activeItem === 'login'} onClick={this.handleMenuItemClick}>
             Login
         </Menu.Item>
     );

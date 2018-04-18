@@ -1,8 +1,8 @@
 import React, {Component} from "react";
-import {Header, Button, Form, Message, Segment, Dimmer, Loader} from "semantic-ui-react";
+import {Header, Button, Form, Message, Segment, Divider, Loader} from "semantic-ui-react";
 import {Helmet} from "react-helmet";
 import { connect } from 'react-redux'
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import store from '../store'
 import * as adminActions from "../actions/adminActions";
 
@@ -55,7 +55,7 @@ class Import extends Component {
         <Header as="h1" color='red'>Import</Header>
         {loadingCycle}
         <Button primary fluid onClick={this.initialImport}>Initale Daten von der cnlab API holen</Button>
-        <br/><br/>
+        <br/><Divider /><br/>
         <Form>
           <Message
             success

@@ -64,13 +64,17 @@ function importStart () {
 
 export function getSettingsFromAPI() {
   return function (dispatch) {
-    return axios({
-      url : "http://localhost:9000/settings",
-      timeout : 20000,
-      method: 'get',
-      responseType: 'json'
-    }). then(function (response) {
-      dispatch(receiveSettings(response.data));
+    return axios.get("http://localhost:9000/settings").then(function (response) {
+       if (response.status) {
+           dispatch(receiveSettings(response.data));
+       } else if (response.status === 500) {
+            var obj = {};
+            obj.raceID = 0;
+            obj.stageID = 0;
+            dispatch(receiveSettings(obj));
+       } else {
+           // Do nothing
+       }
     })
   }
 }
@@ -78,7 +82,7 @@ export function getSettingsFromAPI() {
 export function getRacesAndStagesFromAPI() {
   return function (dispatch) {
     return axios({
-      url : "http://localhost:9000/races",
+      url: "http://localhost:9000/races",
       timeout: 20000,
       method: 'get',
       responseType: 'json'
@@ -92,14 +96,11 @@ export function postLogin(user) {
     return function (dispatch) {
       axios.post("http://localhost:9000/login", user).then(function (response) {
           if(response.status === 200) {
-              console.log(response);
               dispatch(sucessfullLogin(user));
           } else {
-              console.log(response);
               dispatch(receiveLoginError("Combination of username and password not found"));
           }
       }).catch(function (response) {
-          console.log(response);
           dispatch(receiveLoginError(response));
       });
     }
@@ -117,14 +118,11 @@ export function putSettings(setting) {
       }
     }).then(function (response) {
       if(response.status === 200) {
-        console.log(response);
         dispatch(getSettingsFromAPI());
       } else {
-        console.log(response);
         dispatch(receiveSettingsError("Invalid api call"));
       }
     }).catch(function (response) {
-      console.log(response);
       dispatch(receiveSettingsError);
     })
 
@@ -144,14 +142,11 @@ export function initialImport() {
       }
     }).then(function (response) {
       if(response.status === 200) {
-        console.log(response);
         dispatch(importDone());
       } else {
-        console.log(response);
         dispatch(importError("Invalid api call"));
       }
     }).catch(function (response) {
-      console.log(response);
       dispatch(importError);
     })
   }
