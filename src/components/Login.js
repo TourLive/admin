@@ -18,6 +18,8 @@ class Login extends Component {
                 </Helmet>
                 <Header as="h1" color='red'>Login</Header>
                 <LoginForm/>
+                <br/>
+                <p>(c) admin.tourlive.ch</p>
             </div>
         )
     );

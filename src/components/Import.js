@@ -12,14 +12,14 @@ class Import extends Component {
 
     this.state = {
       updated : false
-    }
+    };
 
     this.initialImport = this.initialImport.bind(this);
   }
 
   initialImport(event) {
     event.preventDefault();
-    store.dispatch(adminActions.initialImport())
+    store.dispatch(adminActions.initialImport());
     this.setState({updated: true});
   }
 
