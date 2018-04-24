@@ -1,8 +1,14 @@
 import { combineReducers } from "redux";
-import riderReducer from "./riderReducer";
+import settingsReducer from "./settingsReducer";
+import racesReducer from "./racesReducer";
+import userReducer from "./userReducer";
+import importReducer from "./importReducer";
 
 const rootReducer = combineReducers({
-    riders: riderReducer
+  settings : settingsReducer,
+  races : racesReducer,
+  user : userReducer,
+  import : importReducer
 });
 
 export default rootReducer;
