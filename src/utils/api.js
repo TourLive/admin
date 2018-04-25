@@ -1,4 +1,4 @@
-const HOST = "http://localhost:9000";
+const HOST = "http://prod-api.tourlive.ch";
 export const LINK_SETTINGS = HOST + "/settings";
 export const LINK_RACES = HOST + "/races";
 export const LINK_LOGIN = HOST + "/login";
