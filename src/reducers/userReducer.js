@@ -17,6 +17,12 @@ function cleanLocalStorage() {
     localStorage.removeItem("PASSWORD");
 }
 
+function getLocalStorage() {
+    let user = localStorage.getItem("USER");
+    let pass = localStorage.getItem("PASSWORD");
+    return {user, pass};
+}
+
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
       case types.UNSET_USER:
@@ -28,6 +34,12 @@ const userReducer = (state = initialState, action) => {
       case types.SET_USER_ERROR:
           cleanLocalStorage();
           return {...state, error:action.data};
+      case types.GET_LOCAL_STORAGE:
+          const local = getLocalStorage();
+          if (local.user  === null ||  local.pass === null) {
+              return state;
+          }
+          return {...state, username : local.user, password : local.pass, loggedIn: true};
     default:
       return state;
   }

@@ -1,0 +1,10 @@
+#!/bin/bash
+docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+prop="version"
+actual_version="$(node -pe "require('./package.json')['$prop']")"
+echo $actual_version
+docker build -t tourlive/admin:$actual_version .
+docker push tourlive/admin:$actual_version
+docker tag tourlive/admin:$actual_version tourlive/admin:latest
+docker push tourlive/admin:latest
+ssh -p 40001 -o StrictHostKeyChecking=no ufo@sinv-56034.edu.hsr.ch "sh /opt/tourlive/admin.sh"
