@@ -2,7 +2,6 @@ import axios from "axios";
 import * as types from "./actionTypes";
 import store from "../store"
 import * as api from "../utils/api";
-import {LINK_SETTINGS} from "../utils/api";
 
 function receiveSettings(data) {
   return {
