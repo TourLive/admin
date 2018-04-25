@@ -1,11 +1,19 @@
 import axios from "axios";
 import * as types from "./actionTypes";
 import store from "../store"
+import * as api from "../utils/api";
 
 function receiveSettings(data) {
   return {
     type : types.GET_SETTINGS,
     data : data
+  }
+}
+
+function receiveLocalUsername() {
+  return {
+      type: types.GET_LOCAL_STORAGE,
+      data: false
   }
 }
 
@@ -64,7 +72,7 @@ function importStart () {
 
 export function getSettingsFromAPI() {
   return function (dispatch) {
-    return axios.get("http://localhost:9000/settings").then(function (response) {
+    return axios.get(api.LINK_SETTINGS).then(function (response) {
        if (response.status) {
            dispatch(receiveSettings(response.data));
        } else if (response.status === 500) {
@@ -82,7 +90,7 @@ export function getSettingsFromAPI() {
 export function getRacesAndStagesFromAPI() {
   return function (dispatch) {
     return axios({
-      url: "http://localhost:9000/races",
+      url: api.LINK_RACES,
       timeout: 20000,
       method: 'get',
       responseType: 'json'
@@ -94,7 +102,7 @@ export function getRacesAndStagesFromAPI() {
 
 export function postLogin(user) {
     return function (dispatch) {
-      axios.post("http://localhost:9000/login", user).then(function (response) {
+      axios.post(api.LINK_LOGIN, user).then(function (response) {
           if(response.status === 200) {
               dispatch(sucessfullLogin(user));
           } else {
@@ -108,7 +116,7 @@ export function postLogin(user) {
 
 export function putSettings(setting) {
   return function (dispatch) {
-    axios.put("http://localhost:9000/settings", setting, {
+    axios.put(api.LINK_SETTINGS, setting, {
       headers: {
         "Csrf-Token": "nocheck"
       },
@@ -123,7 +131,7 @@ export function putSettings(setting) {
         dispatch(receiveSettingsError("Invalid api call"));
       }
     }).catch(function (response) {
-      dispatch(receiveSettingsError);
+      dispatch(receiveSettingsError(response));
     })
 
   }
@@ -132,7 +140,7 @@ export function putSettings(setting) {
 export function initialImport() {
   return function (dispatch) {
     dispatch(importStart());
-    axios.get("http://localhost:9000/import", {
+    axios.get(api.LINK_IMPORT, {
       headers: {
         "Csrf-Token": "nocheck"
       },
@@ -147,7 +155,7 @@ export function initialImport() {
         dispatch(importError("Invalid api call"));
       }
     }).catch(function (response) {
-      dispatch(importError);
+      dispatch(importError(response));
     })
   }
 }
@@ -155,5 +163,11 @@ export function initialImport() {
 export function logout() {
     return function (dispatch) {
         dispatch(receiveLogout());
+    }
+}
+
+export function getLocalUsername() {
+    return function (dispatch) {
+        dispatch(receiveLocalUsername());
     }
 }

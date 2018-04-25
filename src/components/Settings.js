@@ -28,6 +28,9 @@ class Settings extends Component {
             <title>Tourlive Admin | Einstellungen</title>
           </Helmet>
           <Header as="h1" color='red'>Einstellungen</Header>
+          <Header as="h3">Beschreibung</Header>
+          <p>Diese Einstellungen geben an, welche Etappe und Rennen in der Tablet Anwendung (RadioTour Speaker) sowie in Webanwendung (Zuschauer) verwendet wird.</p>
+          <p>Nach jeder Etappe muss diese Einstellung gewechselt werden.</p>
           <SettingsForm settings={settings} races={races}/>
         </div>
     );

@@ -10,11 +10,18 @@ import NotFound from "./components/NotFound";
 import Logout from "./components/Logout";
 import {PrivateRoute} from "./components/PrivateRoute";
 import {connect} from "react-redux";
+import store from "./store";
+import * as adminActions from "./actions/adminActions";
+
 
 class App extends Component {
   state = {}
 
-  handleMenuItemClick = (e, {name}) => this.setState({activeItem: name})
+  handleMenuItemClick = (e, {name}) => this.setState({activeItem: name});
+
+    componentDidMount() {
+        store.dispatch(adminActions.getLocalUsername());
+    }
 
   render() {
     const {activeItem} = this.state;
