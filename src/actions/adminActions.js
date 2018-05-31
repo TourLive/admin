@@ -76,9 +76,16 @@ function deleteDone() {
     }
 }
 
-function deleteError() {
+function displayDelete() {
     return {
-        type : types.DELETE_ERROR
+        type : types.DISPLAY_DELETE;
+    }
+}
+
+function deleteError(error) {
+    return {
+        type : types.DELETE_ERROR,
+        data : error
     }
 }
 
@@ -120,7 +127,9 @@ export function deleteActualRace() {
             method: 'delete',
             responseType: 'json'
         }).then(function (response) {
-            dispatch(receiveRacesAndStages(response.data));
+            dispatch(deleteDone());
+        }).catch(function (response) {
+            dispatch(deleteError(response.data));
         })
     }
 }
@@ -176,6 +185,9 @@ export function initialImport() {
     }).then(function (response) {
       if(response.status === 200) {
         dispatch(importDone());
+      } else if (response.status === 403) {
+        dispatch(importError("Race already exists, delete it first"));
+        dispatch(displayDelete());
       } else {
         dispatch(importError("Invalid api call"));
       }
