@@ -78,7 +78,7 @@ function deleteDone() {
 
 function displayDelete() {
     return {
-        type : types.DISPLAY_DELETE;
+        type : types.DISPLAY_DELETE
     }
 }
 

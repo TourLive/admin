@@ -69,6 +69,11 @@ class Import extends Component {
     this.setState({updated: true});
   }
 
+    deleteRace(event) {
+        event.preventDefault();
+        store.dispatch(adminActions.deleteActualRace());
+    }
+
   handleInputChange(event) {
     this.setState({
       [event.target.name]: parseInt(event.target.value,10)
@@ -165,6 +170,11 @@ class Import extends Component {
         {importLoadingCycle}
         <Button primary fluid onClick={this.initialImport}>Initale Daten von der cnlab API holen</Button>
         <br/><Divider />
+          <Header as="h3">Löschen der vorhandenen Daten von der API</Header>
+          <p>Nur auszuführen, falls das Rennen bereits in der Datenbank vorhanden ist. Die Anwendung weist Sie entsprechend darauf hin.</p>
+
+          <Button primary fluid onClick={this.deleteRace}>Bestehende Daten von der API löschen</Button>
+          <br/><Divider />
         <Header as="h3">Import der aktuellen Daten vom Zeitnehmer Matsport (pro Etappe)</Header>
         <p>Nach jedem Rennen stehen vom offiziellen Zeitnehmer die aktuellen (korrekten) Daten zur Verfügung. Diese Daten werden mit diesem Schritt eingelesen.</p>
         <p>Dabei werden die Daten der vergangenen Etappe überschrieben. Zudem wir die nächste Etappe mit diesen Daten vorbefüllt.</p>
