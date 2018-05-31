@@ -12,7 +12,8 @@ class SettingsForm extends Component {
       stageID: 0,
       races: [],
       updated : false,
-    }
+    };
+
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -59,6 +60,7 @@ class SettingsForm extends Component {
               {this.state.races.map(x => <option key={x.id} value={x.id}>{x.name}</option>)}
           </Form.Field>
           <Form.Field onChange={this.handleInputChange} label="Aktuelle Etappe" control='select' name="stageID" value={this.state.stageID}>
+              <option key="0_stage" value="0">---</option>
             {this.state.races.filter(item => item.id === this.state.raceID).map(item => {
               return (item.stages.map(sub => {
                 return (<option key={sub.id} value={sub.id}>{sub.stageName} ({sub.start} nach {sub.destination}, {sub.stageType})</option>)

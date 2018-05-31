@@ -70,6 +70,18 @@ function importStart () {
   }
 }
 
+function deleteDone() {
+    return {
+        type : types.DELETE_DONE
+    }
+}
+
+function deleteError() {
+    return {
+        type : types.DELETE_ERROR
+    }
+}
+
 export function getSettingsFromAPI() {
   return function (dispatch) {
     return axios.get(api.LINK_SETTINGS).then(function (response) {
@@ -98,6 +110,19 @@ export function getRacesAndStagesFromAPI() {
       dispatch(receiveRacesAndStages(response.data));
     })
   }
+}
+
+export function deleteActualRace() {
+    return function (dispatch) {
+        return axios({
+            url: api.LINK_IMPORT,
+            timeout: 20000,
+            method: 'delete',
+            responseType: 'json'
+        }).then(function (response) {
+            dispatch(receiveRacesAndStages(response.data));
+        })
+    }
 }
 
 export function postLogin(user) {
