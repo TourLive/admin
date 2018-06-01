@@ -10,6 +10,13 @@ function receiveSettings(data) {
   }
 }
 
+function setAllStages(data) {
+    return {
+        type : types.SET_ALL_STAGES,
+        data : data
+    }
+}
+
 function receiveLocalUsername() {
   return {
       type: types.GET_LOCAL_STORAGE,
@@ -22,6 +29,14 @@ function receiveRacesAndStages(data) {
     type : types.GET_RACES_AND_STAGES,
     data : data
   }
+}
+
+function receiveGPXTracks(data, stageID) {
+    return {
+        type : types.GET_GPXTRACKS,
+        data : data,
+        id: stageID
+    }
 }
 
 function sucessfullLogin(data) {
@@ -56,6 +71,13 @@ function importError (error) {
     type : types.SET_IMPORT_ERROR,
     data : error
   }
+}
+
+function saveCnlabRaceId(id) {
+    return {
+        type : types.SET_CNLAB_DATA,
+        data : id
+    }
 }
 
 function importDone () {
@@ -117,6 +139,19 @@ export function getRacesAndStagesFromAPI() {
       dispatch(receiveRacesAndStages(response.data));
     })
   }
+}
+
+export function getGPXTrack(stageID) {
+    return function (dispatch) {
+        return axios({
+            url: api.LINK_GPXTRACKS + "/" + stageID,
+            timeout: 20000,
+            method: 'get',
+            responseType: 'json'
+        }).then(function (response) {
+            dispatch(receiveGPXTracks(response.data, stageID));
+        })
+    }
 }
 
 export function deleteActualRace() {
@@ -195,6 +230,41 @@ export function initialImport() {
       dispatch(importError(response));
     })
   }
+}
+
+export function getAllStagesForStatus() {
+    return function (dispatch) {
+        let races = store.getState().races.data;
+        let array = [];
+        races.map((element) => {
+            return element.stages.map(sub => {
+                return array.push({raceID: element.id, stageID: sub.id, status: false});
+            })
+        });
+        dispatch(setAllStages(array));
+        array.forEach(element => {
+            store.dispatch(getGPXTrack(element.stageID));
+        });
+    }
+}
+
+export function getCnlabInfo() {
+    return function (dispatch) {
+        return axios({
+            url: api.LINK_CNLAB_SETTINGS,
+            timeout: 20000,
+            method: 'get',
+            responseType: 'json'
+        }).then(function (response) {
+            if (response.status === 200) {
+                let cnlabRaceID = response.data[5].parameter;
+                dispatch(saveCnlabRaceId(cnlabRaceID));
+            } else {
+
+            }
+            //dispatch(receiveGPXTracks(response.data, stageID));
+        })
+    }
 }
 
 export function logout() {
