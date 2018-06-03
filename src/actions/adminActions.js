@@ -235,6 +235,8 @@ export function initialImport() {
       let errorObject=JSON.parse(JSON.stringify(error));
       if (errorObject.response.status === 403) {
         dispatch(importError("Race already exists, delete it first"));
+      } else {
+        dispatch(importError(errorObject.response.data));
       }
     })
   }
