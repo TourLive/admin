@@ -8,20 +8,18 @@ import * as adminActions from "../actions/adminActions";
 
 class Settings extends Component {
   fetchCurrentSettings() {
-    store.dispatch(adminActions.getSettingsFromAPI())
-    store.dispatch(adminActions.getRacesAndStagesFromAPI())
+    store.dispatch(adminActions.getSettingsFromAPI());
+    store.dispatch(adminActions.getRacesAndStagesFromAPI());
   }
 
   componentDidMount() {
     this.fetchCurrentSettings();
-    console.log("Component did mount");
   }
 
   render() {
     const {settings} = this.props;
     const {races} = this.props;
-    console.log(settings);
-    console.log(races);
+    
     return(
         <div className="App-Content">
           <Helmet>

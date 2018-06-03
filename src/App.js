@@ -4,7 +4,6 @@ import {Menu} from 'semantic-ui-react';
 import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
 import Home from "./components/Home";
 import Login from "./components/Login";
-import Import from "./components/ImportDynamicData";
 import Settings from "./components/Settings";
 import NotFound from "./components/NotFound";
 import Logout from "./components/Logout";
@@ -12,9 +11,9 @@ import {PrivateRoute} from "./components/PrivateRoute";
 import {connect} from "react-redux";
 import store from "./store";
 import * as adminActions from "./actions/adminActions";
-import Data from "./components/Data";
 import ImportStaticDataContainer from "./containers/ImportStaticDataContainer";
 import ImportDynamicDataContainer from "./containers/ImportDynamicDataContainer";
+import DataContainer from "./containers/DataContainer";
 
 
 class App extends Component {
@@ -32,7 +31,7 @@ class App extends Component {
 
     const logo = (
         <Menu.Item as={ Link } to="/" name='logo' onClick={this.handleMenuItemClick}>
-            <img src="logo.png" alt="TourLive Logo"/>
+            <img src="../logo.png" alt="TourLive Logo"/>
         </Menu.Item>
     );
 
@@ -80,7 +79,7 @@ class App extends Component {
             <PrivateRoute exact path="/importstatic" component={ImportStaticDataContainer}/>
             <PrivateRoute exact path="/importdynamic" component={ImportDynamicDataContainer}/>
             <PrivateRoute exact path="/settings" component={Settings}/>
-            <PrivateRoute exact path="/data" component={Data}/>
+            <PrivateRoute exact path="/data" component={DataContainer}/>
             <Route path="/login" component={Login}/>
             <Route path="/logout" component={Logout}/>
             <Route component={NotFound}/>

@@ -234,16 +234,19 @@ export function initialImport() {
 
 export function getAllStagesForStatus() {
     return function (dispatch) {
-        let races = store.getState().races.data;
-        let array = [];
-        races.map((element) => {
-            return element.stages.map(sub => {
-                return array.push({raceID: element.id, stageID: sub.id, status: false});
-            })
-        });
-        dispatch(setAllStages(array));
-        array.forEach(element => {
-            store.dispatch(getGPXTrack(element.stageID));
+        dispatch(getRacesAndStagesFromAPI()).then(function () {
+            let races = store.getState().races.data;
+            console.log(races);
+            let array = [];
+            races.map((element) => {
+                return element.stages.map(sub => {
+                    return array.push({raceID: element.id, stageID: sub.id, status: false});
+                })
+            });
+            dispatch(setAllStages(array));
+            array.forEach(element => {
+                store.dispatch(getGPXTrack(element.stageID));
+            });
         });
     }
 }

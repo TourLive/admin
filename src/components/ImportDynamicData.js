@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Header, Segment, Divider, Loader, Form} from "semantic-ui-react";
+import {Header, Segment, Loader, Form} from "semantic-ui-react";
 import {Helmet} from "react-helmet";
 import { Redirect } from 'react-router-dom'
 import store from '../store'
