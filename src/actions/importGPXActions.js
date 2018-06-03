@@ -40,8 +40,9 @@ export function postGPXData(data, id) {
       } else {
         dispatch(importGPXError("Invalid api call"));
       }
-    }).catch(function (response) {
-      dispatch(importGPXError(response));
+    }).catch(function (error) {
+      let errorObject = JSON.parse(JSON.stringify(error));
+      dispatch(importGPXError(errorObject.response.data));
     })
 
   }

@@ -101,11 +101,10 @@ class ImportDynamicData extends Component {
           <title>Tourlive Admin | Import</title>
         </Helmet>
         <Header as="h1" color='red'>Import von dynamischen Daten</Header>
-        <p>Diese Daten müssen nach jedem Rennen wieder neu importiert werden. Dabei werden bereits vorhandene Daten übernommen bzw. überschrieben.</p>
+        <p>Die dynamischen Daten müssen nach jedem Rennen wieder neu importiert werden. Dabei werden bereits vorhandene Daten übernommen bzw. überschrieben.</p>
         <Header as="h3">Import der aktuellen Daten vom Zeitnehmer Matsport (pro Etappe)</Header>
-        <p>Nach jedem Rennen stehen vom offiziellen Zeitnehmer die aktuellen (korrekten) Daten zur Verfügung. Diese Daten werden mit diesem Schritt eingelesen.</p>
-        <p>Dabei werden die Daten der vergangenen Etappe überschrieben. Zudem wir die nächste Etappe mit diesen Daten vorbefüllt.</p>
-        <p>Zuerst die Etappe eines Rennes angeben und dann die Datei mit Drag & Drop einfügen</p>
+        <p>Nach jedem Rennen stehen vom offiziellen Zeitnehmer die aktuellen (korrekten) Daten zur Verfügung. <br/>Diese Daten werden mit diesem Schritt eingelesen.
+        <br/>Dabei werden die Daten der vergangenen Etappe überschrieben. Zudem wir die nächste Etappe mit diesen Daten bzw. Zeiten vorbefüllt.</p>
         {importTimingLoadingCycle}
         <Form>
           <Form.Field onChange={this.handleInputChange} label="Etappe" control='select' name="timingStage">

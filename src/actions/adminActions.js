@@ -163,8 +163,9 @@ export function deleteActualRace() {
             responseType: 'json'
         }).then(function (response) {
             dispatch(deleteDone());
-        }).catch(function (response) {
-            dispatch(deleteError(response.data));
+        }).catch(function (error) {
+            let errorObject = JSON.parse(JSON.stringify(error));
+            dispatch(deleteError(errorObject.response.data));
         })
     }
 }
@@ -177,8 +178,9 @@ export function postLogin(user) {
           } else {
               dispatch(receiveLoginError("Combination of username and password not found"));
           }
-      }).catch(function (response) {
-          dispatch(receiveLoginError(response));
+      }).catch(function (error) {
+          let errorObject = JSON.parse(JSON.stringify(error));
+          dispatch(receiveLoginError(errorObject.response.data));
       });
     }
 }
@@ -199,8 +201,9 @@ export function putSettings(setting) {
       } else {
         dispatch(receiveSettingsError("Invalid api call"));
       }
-    }).catch(function (response) {
-      dispatch(receiveSettingsError(response));
+    }).catch(function (error) {
+      let errorObject = JSON.parse(JSON.stringify(error));
+      dispatch(receiveSettingsError(errorObject.response.data));
     })
 
   }
@@ -218,6 +221,8 @@ export function initialImport() {
         password: store.getState().user.password
       }
     }).then(function (response) {
+      console.log(response);
+      console.log("THEN");
       if(response.status === 200) {
         dispatch(importDone());
       } else if (response.status === 403) {
@@ -226,8 +231,11 @@ export function initialImport() {
       } else {
         dispatch(importError("Invalid api call"));
       }
-    }).catch(function (response) {
-      dispatch(importError(response));
+    }).catch(function (error) {
+      let errorObject=JSON.parse(JSON.stringify(error));
+      if (errorObject.response.status === 403) {
+        dispatch(importError("Race already exists, delete it first"));
+      }
     })
   }
 }
@@ -262,10 +270,7 @@ export function getCnlabInfo() {
             if (response.status === 200) {
                 let cnlabRaceID = response.data[5].parameter;
                 dispatch(saveCnlabRaceId(cnlabRaceID));
-            } else {
-
             }
-            //dispatch(receiveGPXTracks(response.data, stageID));
         })
     }
 }

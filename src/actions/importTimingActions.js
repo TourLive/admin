@@ -40,8 +40,9 @@ export function postTimingData(data, id) {
       } else {
         dispatch(importTimingError("Invalid api call"));
       }
-    }).catch(function (response) {
-      dispatch(importTimingError(response));
+    }).catch(function (error) {
+      let errorObject = JSON.parse(JSON.stringify(error));
+      dispatch(importTimingError(errorObject.response.data));
     })
 
   }

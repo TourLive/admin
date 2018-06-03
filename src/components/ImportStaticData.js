@@ -131,16 +131,20 @@ class ImportStatic extends Component {
                         <title>Tourlive Admin | Import von statischen Daten</title>
                     </Helmet>
                     <Header as="h1" color='red'>Import von statischen Daten</Header>
-                    <p>Der Import von statischen Daten (Rennen, Etappe, Fahrer, Trikiots,...) muss nur einmal erfolgen.</p>
-                    <p>Unter dem Menupunkt werden die Rennen angezeigt, welche bereits in der API vorhanden sind. Daher vor jedem Import einen Blick auf die Liste werfen.</p>
-                    <p>Rennen, welches importiert wird: {cnlab.raceID}</p>
+                    <p>Die statischen Daten nur einmal pro Event importiert werden und sind dann jeweils für den gesamten Event gültig.</p>
+                    <Header as="h3">Import der GPX Daten (pro Etappe)</Header>
+                    <p>Der Import von Renninformationen (Etappe, Fahrer, Trikiots,...) muss nur einmal pro Rennen (z.B. Tour de Suisse 2018) erfolgen.<br/>
+                    Unter dem Menupunkt "Daten in der API" werden die Rennen angezeigt, welche bereits in der API vorhanden sind.<br/>
+                    Sollte die ID bereits in dieser Liste vorhanden sein, muss dieses Rennen zuerst gelöscht werden.<br/>
+                    Das Löschen einer Etappe ist am Ende dieser Seite zu finden.</p>
+                    <p className="bold">Rennen, welches mit diesem Vorgang importiert wird: {cnlab.raceID}</p>
                     {importLoadingCycle}
-                    <Button primary fluid onClick={this.initialImport}>Import von der cnlab API</Button>
+                    <Button primary fluid onClick={this.initialImport}>Datenimport von der cnlab API</Button>
                     <br/>
                     <br/><Divider />
                     <Header as="h3">Import der GPX Daten (pro Etappe)</Header>
-                    <p>Nach jedem Rennen stehen vom offiziellen Zeitnehmer die aktuellen (korrekten) Daten zur Verfügung. Diese Daten werden mit diesem Schritt eingelesen.</p>
-                    <p>Die Aktualisierung der GPX Daten kann zu jederzeit erfolgen. Es empfiehlt sich die Daten bereits zu Beginn des Rennens zu aktualisieren.</p>
+                    <p>Diese Funktion deckt den Import der Routendaten (GPX) ab.<br/>
+                    Das Einlesen der GPX Daten kann zu jederzeit erfolgen. Es empfiehlt sich die Daten bereits zu Beginn des Rennens zu aktualisieren.</p>
                     {importGPXLoadingCycle}
                     <Form>
                         <Form.Field onChange={this.handleInputChange} label="Etappe" control='select' name="gpxStage">

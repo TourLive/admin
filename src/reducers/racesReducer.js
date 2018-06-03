@@ -9,8 +9,6 @@ const initialState = {
 const racesReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.GET_RACES_AND_STAGES:
-      console.log("RACESREDUCER");
-      console.log(action.data);
       return Object.assign({}, state, {
         data : action.data,
         error: false,
