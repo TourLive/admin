@@ -21,6 +21,7 @@ class ImportStatic extends Component {
 
         this.initialImport = this.initialImport.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.deleteRace = this.deleteRace.bind(this);
     }
 
     fetchCnlabSettings() {

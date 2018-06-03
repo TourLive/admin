@@ -8,7 +8,7 @@ class StatusList extends Component {
 
         return(
             <List selection verticalAlign='middle'>
-                {status.map(element => {
+                {status.length !== 0 && status.map(element => {
                     let race = races.filter(item => {
                         return item.id = element.raceID;
                     });
@@ -19,6 +19,9 @@ class StatusList extends Component {
                             return elem.id = element.stageID;
                         });
                         stage = stage[0];
+                    }
+                    if (race === undefined || stage === undefined) {
+                        return (<p>Aktuell sind keine Rennen in der API vorhanden.</p>);
                     }
                     return (
                         <List.Item key={element.raceID + element.stageID}>

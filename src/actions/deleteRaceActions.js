@@ -12,7 +12,7 @@ function deleteRaceError (error) {
 
 function deleteRaceDone () {
   return {
-    type : types.SET_DELETE_RACE_DONE,
+    type : types.SET_DELETE_RACE_DONE
   }
 }
 
@@ -24,8 +24,7 @@ function deleteRaceStart () {
 
 export function deleteActualRace() {
   return function (dispatch) {
-    console.log("HERE");
-    dispatch(deleteRaceStart);
+    dispatch(deleteRaceStart());
     return axios({
       url: api.LINK_IMPORT,
       timeout: 20000,
