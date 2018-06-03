@@ -221,8 +221,6 @@ export function initialImport() {
         password: store.getState().user.password
       }
     }).then(function (response) {
-      console.log(response);
-      console.log("THEN");
       if(response.status === 200) {
         dispatch(importDone());
       } else if (response.status === 403) {
@@ -246,7 +244,6 @@ export function getAllStagesForStatus() {
     return function (dispatch) {
         dispatch(getRacesAndStagesFromAPI()).then(function () {
             let races = store.getState().races.data;
-            console.log(races);
             let array = [];
             races.map((element) => {
                 return element.stages.map(sub => {

@@ -15,7 +15,6 @@ class StatusList extends Component {
                     race = race[0];
                     let stage;
                     if (race !== undefined) {
-                        console.log(race);
                         stage = race.stages.filter(elem => {
                             return elem.id = element.stageID;
                         });
