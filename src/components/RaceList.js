@@ -16,7 +16,7 @@ class RaceList extends Component {
                                 </List.Content>
                     </List.Item>);
                 })}
-                {races.length === 0 && <p>Aktuell sind keine Rennen in der API vorhanden</p>}
+                {races.length === 0 && <p>Aktuell sind keine Rennen in der API vorhanden.</p>}
             </List>
         );
     }

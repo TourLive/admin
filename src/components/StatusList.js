@@ -25,11 +25,11 @@ class StatusList extends Component {
                         <List.Item key={element.raceID + element.stageID}>
                             <Image avatar src='/../gpxIcon.png' />
                             <List.Content>
-                                <List.Header>{race.name} | {stage.stageName} {element.status === true ? ("(GPX Daten vorhanden)") : ("(GPX Daten noch nicht vorhanden")}</List.Header>
+                                <List.Header>{race.name} | {stage.stageName} {element.status === true ? ("(GPX Daten vorhanden)") : ("(GPX Daten noch nicht vorhanden)")}</List.Header>
                             </List.Content>
                         </List.Item>);
                 })}
-                {status.length === 0 && <p>Aktuell sind keine Rennen in der API vorhanden</p>}
+                {status.length === 0 && <p>Aktuell sind keine Rennen in der API vorhanden.</p>}
             </List>
         );
     }
