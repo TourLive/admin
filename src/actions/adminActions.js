@@ -10,6 +10,13 @@ function receiveSettings(data) {
   }
 }
 
+function setAllStages(data) {
+    return {
+        type : types.SET_ALL_STAGES,
+        data : data
+    }
+}
+
 function receiveLocalUsername() {
   return {
       type: types.GET_LOCAL_STORAGE,
@@ -22,6 +29,14 @@ function receiveRacesAndStages(data) {
     type : types.GET_RACES_AND_STAGES,
     data : data
   }
+}
+
+function receiveGPXTracks(data, stageID) {
+    return {
+        type : types.GET_GPXTRACKS,
+        data : data,
+        id: stageID
+    }
 }
 
 function sucessfullLogin(data) {
@@ -58,6 +73,13 @@ function importError (error) {
   }
 }
 
+function saveCnlabRaceId(id) {
+    return {
+        type : types.SET_CNLAB_DATA,
+        data : id
+    }
+}
+
 function importDone () {
   return {
     type : types.SET_IMPORT_DONE
@@ -68,6 +90,25 @@ function importStart () {
   return {
     type : types.SET_IMPORT_START
   }
+}
+
+function deleteDone() {
+    return {
+        type : types.DELETE_DONE
+    }
+}
+
+function displayDelete() {
+    return {
+        type : types.DISPLAY_DELETE
+    }
+}
+
+function deleteError(error) {
+    return {
+        type : types.DELETE_ERROR,
+        data : error
+    }
 }
 
 export function getSettingsFromAPI() {
@@ -100,6 +141,19 @@ export function getRacesAndStagesFromAPI() {
   }
 }
 
+export function getGPXTrack(stageID) {
+    return function (dispatch) {
+        return axios({
+            url: api.LINK_GPXTRACKS + "/" + stageID,
+            timeout: 20000,
+            method: 'get',
+            responseType: 'json'
+        }).then(function (response) {
+            dispatch(receiveGPXTracks(response.data, stageID));
+        })
+    }
+}
+
 export function postLogin(user) {
     return function (dispatch) {
       axios.post(api.LINK_LOGIN, user).then(function (response) {
@@ -108,8 +162,9 @@ export function postLogin(user) {
           } else {
               dispatch(receiveLoginError("Combination of username and password not found"));
           }
-      }).catch(function (response) {
-          dispatch(receiveLoginError(response));
+      }).catch(function (error) {
+          let errorObject = JSON.parse(JSON.stringify(error));
+          dispatch(receiveLoginError(errorObject.response.data));
       });
     }
 }
@@ -130,8 +185,9 @@ export function putSettings(setting) {
       } else {
         dispatch(receiveSettingsError("Invalid api call"));
       }
-    }).catch(function (response) {
-      dispatch(receiveSettingsError(response));
+    }).catch(function (error) {
+      let errorObject = JSON.parse(JSON.stringify(error));
+      dispatch(receiveSettingsError(errorObject.response.data));
     })
 
   }
@@ -151,13 +207,55 @@ export function initialImport() {
     }).then(function (response) {
       if(response.status === 200) {
         dispatch(importDone());
+      } else if (response.status === 403) {
+        dispatch(importError("Race already exists, delete it first"));
+        dispatch(displayDelete());
       } else {
         dispatch(importError("Invalid api call"));
       }
-    }).catch(function (response) {
-      dispatch(importError(response));
+    }).catch(function (error) {
+      let errorObject=JSON.parse(JSON.stringify(error));
+      if (errorObject.response.status === 403) {
+        dispatch(importError("Race already exists, delete it first"));
+      } else {
+        dispatch(importError(errorObject.response.data));
+      }
     })
   }
+}
+
+export function getAllStagesForStatus() {
+    return function (dispatch) {
+        dispatch(getRacesAndStagesFromAPI()).then(function () {
+            let races = store.getState().races.data;
+            let array = [];
+            races.map((element) => {
+                return element.stages.map(sub => {
+                    return array.push({raceID: element.id, stageID: sub.id, status: false});
+                })
+            });
+            dispatch(setAllStages(array));
+            array.forEach(element => {
+                store.dispatch(getGPXTrack(element.stageID));
+            });
+        });
+    }
+}
+
+export function getCnlabInfo() {
+    return function (dispatch) {
+        return axios({
+            url: api.LINK_CNLAB_SETTINGS,
+            timeout: 20000,
+            method: 'get',
+            responseType: 'json'
+        }).then(function (response) {
+            if (response.status === 200) {
+                let cnlabRaceID = response.data[5].parameter;
+                dispatch(saveCnlabRaceId(cnlabRaceID));
+            }
+        })
+    }
 }
 
 export function logout() {

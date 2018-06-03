@@ -3,32 +3,35 @@ import store from '../store';
 import * as api from '../utils/api';
 import * as types from './actionTypes'
 
-function importTimingError (error) {
+function deleteRaceError (error) {
   return {
-    type : types.SET_IMPORT_TIMING_ERROR,
+    type : types.SET_DELETE_RACE_ERROR,
     data : error
   }
 }
 
-function importTimingDone () {
+function deleteRaceDone () {
   return {
-    type : types.SET_IMPORT_TIMING_DONE
+    type : types.SET_DELETE_RACE_DONE
   }
 }
 
-function importTimingStart () {
+function deleteRaceStart () {
   return {
-    type : types.SET_IMPORT_TIMING_START
+    type : types.SET_DELETE_RACE_START
   }
 }
 
-export function postTimingData(data, id) {
+export function deleteActualRace() {
   return function (dispatch) {
-    dispatch(importTimingStart());
-    axios.put(api.LINK_UPDATE + "/" + id, data, {
+    dispatch(deleteRaceStart());
+    return axios({
+      url: api.LINK_IMPORT,
+      timeout: 20000,
+      method: 'delete',
+      responseType: 'json',
       headers: {
-        "Csrf-Token": "nocheck",
-        'Content-Type': 'application/xml'
+        "Csrf-Token": "nocheck"
       },
       auth: {
         username: store.getState().user.username,
@@ -36,14 +39,13 @@ export function postTimingData(data, id) {
       }
     }).then(function (response) {
       if(response.status === 200) {
-        dispatch(importTimingDone());
+        dispatch(deleteRaceDone());
       } else {
-        dispatch(importTimingError("Invalid api call"));
+        dispatch(deleteRaceError("Invalid api call"));
       }
     }).catch(function (error) {
       let errorObject = JSON.parse(JSON.stringify(error));
-      dispatch(importTimingError(errorObject.response.data));
+      dispatch(deleteRaceError(errorObject.response.data));
     })
-
   }
 }
