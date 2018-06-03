@@ -7,6 +7,7 @@ import importTimingReducer from "./importTimingReducer";
 import importGPXReducer from "./importGPXReducer";
 import statusReducer from "./statusReducer";
 import cnlabReducer from "./cnlabReducer";
+import deleteRaceReducer from './deleteRaceReducer'
 
 const rootReducer = combineReducers({
   settings : settingsReducer,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   importGPX : importGPXReducer,
   importTiming : importTimingReducer,
   status : statusReducer,
-  cnlab : cnlabReducer
+  cnlab : cnlabReducer,
+  delete : deleteRaceReducer
 });
 
 export default rootReducer;

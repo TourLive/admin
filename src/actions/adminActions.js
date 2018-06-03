@@ -154,22 +154,6 @@ export function getGPXTrack(stageID) {
     }
 }
 
-export function deleteActualRace() {
-    return function (dispatch) {
-        return axios({
-            url: api.LINK_IMPORT,
-            timeout: 20000,
-            method: 'delete',
-            responseType: 'json'
-        }).then(function (response) {
-            dispatch(deleteDone());
-        }).catch(function (error) {
-            let errorObject = JSON.parse(JSON.stringify(error));
-            dispatch(deleteError(errorObject.response.data));
-        })
-    }
-}
-
 export function postLogin(user) {
     return function (dispatch) {
       axios.post(api.LINK_LOGIN, user).then(function (response) {

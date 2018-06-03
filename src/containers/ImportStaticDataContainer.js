@@ -7,7 +7,8 @@ function mapStateToProps(store) {
         importSettings : store.import,
         cnlab : store.cnlab,
         importGPX : store.importGPX,
-        races : store.races.data
+        races : store.races.data,
+        del : store.delete
     }
 }
 

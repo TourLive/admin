@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom'
 import store from '../store'
 import * as adminActions from "../actions/adminActions";
 import * as importGPXActions from "../actions/importGPXActions";
+import * as deleteRaceActions from "../actions/deleteRaceActions";
 import Dropzone from 'react-dropzone';
 
 class ImportStatic extends Component {
@@ -14,6 +15,7 @@ class ImportStatic extends Component {
         this.state = {
             updated : false,
             updatedGPX : false,
+            updatedDelete : false,
             gpxStage : 0,
         };
 
@@ -63,7 +65,8 @@ class ImportStatic extends Component {
 
     deleteRace(event) {
         event.preventDefault();
-        store.dispatch(adminActions.deleteActualRace());
+        store.dispatch(deleteRaceActions.deleteActualRace());
+        this.setState({updatedDelete: true});
     }
 
     render() {
@@ -72,6 +75,7 @@ class ImportStatic extends Component {
         const {cnlab} = this.props;
         const {importGPX} = this.props;
         const {races} = this.props;
+        const {del} = this.props;
 
         const boxStyle = {
             width: '100%',
@@ -104,6 +108,26 @@ class ImportStatic extends Component {
                 )
             )
         );
+
+      const deleteRaceCycle = del.loading ? (
+        <Segment inverted color='green'>
+          <Loader active inline='centered' />
+        </Segment>
+      ) : (
+        del.error !== "" ? (
+          <Segment inverted color='red'>
+            {del.error}
+          </Segment>
+        ) : (
+          this.state.updatedDelete === true ? (
+            <Segment inverted color='green'>
+              <p>Das Löschen des Rennens auf der API wurde erfolgreich ausgeführt.</p>
+            </Segment>
+          ) : (
+            <br/>
+          )
+        )
+      );
 
         const importLoadingCycle = importSettings.loading ? (
             <Segment inverted color='grey'>
@@ -161,6 +185,14 @@ class ImportStatic extends Component {
                         <p>Dateien hier hineinziehen. Zuvor die entsprechende Etappe auswählen.</p>
                         <p>Für den Import werden .xml-Dateien vorausgesetzt.</p>
                     </Dropzone>
+                    <br/>
+                    <br/><Divider />
+                    <Header as="h3">Löschen des aktuellen Rennens vor der API</Header>
+                    <p>Mit dieser Aktion wird das aktuelle Rennen von der API gelöst und damit alle dazugehörigen Daten</p>
+                    <p className="bold">Rennen, welches mit diesem Vorgang gelöscht wird: {cnlab.raceID}</p>
+                    {deleteRaceCycle}
+                    <Button fluid color='red' onClick={this.deleteRace}>Löschen des aktuellen Rennens</Button>
+                    <br/>
                 </div>
 
             ) : (

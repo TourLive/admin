@@ -10,7 +10,7 @@ const importGPXReducer = (state = initialState, action) => {
     case types.SET_IMPORT_GPX_DONE:
       return {...state, loading: false};
     case types.SET_IMPORT_GPX_START:
-      return {...state, loading: true};
+      return {...state, loading: true, error : ""};
     case types.SET_IMPORT_GPX_ERROR:
       return {...state, loading: false, error : action.data};
     default:
