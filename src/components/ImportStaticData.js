@@ -157,7 +157,7 @@ class ImportStatic extends Component {
                     </Helmet>
                     <Header as="h1" color='red'>Import von statischen Daten</Header>
                     <p>Die statischen Daten nur einmal pro Event importiert werden und sind dann jeweils für den gesamten Event gültig.</p>
-                    <Header as="h3">Import der GPX Daten (pro Etappe)</Header>
+                    <Header as="h3">Import von Renninformationen</Header>
                     <p>Der Import von Renninformationen (Etappe, Fahrer, Trikiots,...) muss nur einmal pro Rennen (z.B. Tour de Suisse 2018) erfolgen.<br/>
                     Unter dem Menupunkt "Daten in der API" werden die Rennen angezeigt, welche bereits in der API vorhanden sind.<br/>
                     Sollte die ID bereits in dieser Liste vorhanden sein, muss dieses Rennen zuerst gelöscht werden.<br/>
