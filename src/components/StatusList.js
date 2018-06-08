@@ -10,13 +10,13 @@ class StatusList extends Component {
             <List selection verticalAlign='middle'>
                 {status.length !== 0 && status.map(element => {
                     let race = races.filter(item => {
-                        return item.id = element.raceID;
+                        return item.id == element.raceID;
                     });
                     race = race[0];
                     let stage;
                     if (race !== undefined) {
                         stage = race.stages.filter(elem => {
-                            return elem.id = element.stageID;
+                            return elem.id == element.stageID;
                         });
                         stage = stage[0];
                     }
